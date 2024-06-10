@@ -45,5 +45,15 @@ export async function getCast(id) {
 		},
 	});
 
-	return data;
+	return data.cast;
+}
+
+export async function getReview(id) {
+	const { data } = await axios.get(`/movie/${id}/reviews`, {
+		params: {
+			api_key: ACCESS_KEY,
+		},
+	});
+
+	return data.results;
 }

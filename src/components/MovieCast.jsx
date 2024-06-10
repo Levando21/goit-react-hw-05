@@ -19,18 +19,26 @@ export default function MovieCast() {
 			}
 		};
 
-		fetchCastData();
+		if (moviesId) {
+			fetchCastData();
+		}
 	}, [moviesId]);
 
 	return (
 		<div>
-			<h2>Movie Cast</h2>
 			<ul>
-				{cast.map((actor) => (
-					<li key={actor.id}>
-						<p>{actor.name}</p>
-					</li>
-				))}
+				{cast &&
+					cast.map((actor) => (
+						<li key={actor.id}>
+							<img
+								src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+								alt={actor.id}
+								width="100"
+								height="100"
+							/>
+							<p>{actor.name}</p>
+						</li>
+					))}
 			</ul>
 		</div>
 	);

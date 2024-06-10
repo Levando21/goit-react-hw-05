@@ -22,6 +22,7 @@ export default function Movie() {
 	const [error, setError] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(1);
+
 	useEffect(() => {
 		if (searchMovie === "") {
 			return;
@@ -72,7 +73,7 @@ export default function Movie() {
 			{movies.length > 0 &&
 				movies.map((movie) => (
 					<div key={movie.id}>
-						<Link to={`${movie.id}`}>
+						<Link to={`/movies/${movie.id}`}>
 							<p>{movie.title}</p>
 						</Link>
 					</div>

@@ -12,6 +12,7 @@ import "./App.css";
 import css from "./App.module.css";
 import MovieCast from "./components/MovieCast";
 import MovieReview from "./components/MovieReviews";
+import NotFoundPage from "./components/NotFoundPage";
 function App() {
 	const windowIsActive = ({ isActive }) => {
 		return clsx(css.link, isActive && css.active);
@@ -50,14 +51,14 @@ function App() {
 						element={<MovieCast />}
 					/>
 					<Route
-						path="review"
+						path="reviews"
 						element={<MovieReview />}
 					/>
 				</Route>
 				{
 					<Route
 						path="*"
-						element={<div>404</div>}
+						element={<NotFoundPage />}
 					/>
 				}
 			</Routes>

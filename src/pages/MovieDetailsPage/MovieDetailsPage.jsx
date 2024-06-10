@@ -2,11 +2,13 @@
 
 import { useEffect, useState, useRef } from "react";
 import { getSingleMovie } from "../../api/api";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 
 export default function MovieDetailsPage() {
 	const { moviesId } = useParams();
 	const [movie, setMovie] = useState(null);
+	const location = useLocation();
+	const backLocation = useRef(location.state ?? "/");
 
 	useEffect(() => {
 		if (!moviesId) return;
@@ -28,24 +30,28 @@ export default function MovieDetailsPage() {
 		<div>
 			{movie && (
 				<div>
-					<h2>{movie.original_title}</h2>
-					<p>Date of production: {movie.release_date}</p>
-					<img
-						src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-						alt={movie.id}
-						width="300"
-						height="300"
-					/>
+					<Link to={backLocation.current}>Back</Link>
+					<div>
+						<h2>{movie.original_title}</h2>
+						<p>Date of production: {movie.release_date}</p>
+						<img
+							src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+							alt={movie.id}
+							width="300"
+							height="300"
+						/>
+					</div>
 
 					<h3>Additional information:</h3>
 					<ul>
 						<li>
-							<Link to={`/movies/${moviesId}/cast`}>Cast</Link>
+							<Link to={`cast`}>Cast</Link>
 						</li>
 						<li>
-							<Link to={`/movies/${moviesId}/reviews`}>Reviews</Link>
+							<Link to={`reviews`}>Reviews</Link>
 						</li>
 					</ul>
+					<Outlet />
 				</div>
 			)}
 		</div>

@@ -50,3 +50,7 @@ header {
 ul {
 	list-style-type: none;
 }
+
+div {
+	max-width: 100%;
+}
