@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import { getReview } from "../api/api";
 
 export default function MovieReview() {
-	const { moviesId } = useParams();
+	const { movieId } = useParams();
 	const [reviews, setReviews] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (!moviesId) return;
+		if (!movieId) return;
 		const fetchReviewData = async () => {
 			setLoading(true);
 			try {
-				const data = await getReview(moviesId);
+				const data = await getReview(movieId);
 				setReviews(data);
 				setLoading(false);
 				console.log(data);
@@ -25,10 +25,10 @@ export default function MovieReview() {
 			}
 		};
 
-		if (moviesId) {
+		if (movieId) {
 			fetchReviewData();
 		}
-	}, [moviesId]);
+	}, [movieId]);
 
 	return (
 		<div>

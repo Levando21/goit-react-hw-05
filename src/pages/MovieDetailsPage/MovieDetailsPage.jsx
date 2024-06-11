@@ -5,16 +5,16 @@ import { getSingleMovie } from "../../api/api";
 import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 
 export default function MovieDetailsPage() {
-	const { moviesId } = useParams();
+	const { movieId } = useParams();
 	const [movie, setMovie] = useState(null);
 	const location = useLocation();
 	const backLocation = useRef(location.state ?? "/");
 
 	useEffect(() => {
-		if (!moviesId) return;
+		if (!movieId) return;
 		const getData = async () => {
 			try {
-				const data = await getSingleMovie(moviesId);
+				const data = await getSingleMovie(movieId);
 				setMovie(data);
 				console.log(data);
 			} catch (error) {
@@ -22,10 +22,10 @@ export default function MovieDetailsPage() {
 			}
 		};
 
-		if (moviesId) {
+		if (movieId) {
 			getData();
 		}
-	}, [moviesId]);
+	}, [movieId]);
 	return (
 		<div>
 			{movie && (

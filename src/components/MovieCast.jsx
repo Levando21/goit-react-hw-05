@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { getCast } from "../api/api";
 
 export default function MovieCast() {
-	const { moviesId } = useParams();
+	const { movieId } = useParams();
 	const [cast, setCast] = useState([]);
 
 	useEffect(() => {
-		if (!moviesId) return;
+		if (!movieId) return;
 		const fetchCastData = async () => {
 			try {
-				const data = await getCast(moviesId);
+				const data = await getCast(movieId);
 				setCast(data);
 				console.log(data);
 			} catch (error) {
@@ -19,10 +19,10 @@ export default function MovieCast() {
 			}
 		};
 
-		if (moviesId) {
+		if (movieId) {
 			fetchCastData();
 		}
-	}, [moviesId]);
+	}, [movieId]);
 
 	return (
 		<div>

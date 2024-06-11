@@ -3,8 +3,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getMovies from "../../api/api";
-import { Link } from "react-router-dom";
+import MovieList from "../../components/MovieList";
+import { useNavigate } from "react-router-dom";
 export default function Movie() {
+	const navigate = useNavigate();
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const query = event.target.elements.searchMovie.value.trim();
@@ -13,6 +15,7 @@ export default function Movie() {
 			return;
 		}
 		handleSearch(query);
+		navigate(`/movies?query=${query}`);
 		event.target.reset();
 		console.log(event.target.elements.searchMovie);
 	};
@@ -70,14 +73,7 @@ export default function Movie() {
 			{loading && <p>Loading...</p>}
 			{error && <p>Error fetching movies.</p>}
 
-			{movies.length > 0 &&
-				movies.map((movie) => (
-					<div key={movie.id}>
-						<Link to={`/movies/${movie.id}`}>
-							<p>{movie.title}</p>
-						</Link>
-					</div>
-				))}
+			{movies.length > 0 && <MovieList movies={movies} />}
 		</div>
 	);
 }
