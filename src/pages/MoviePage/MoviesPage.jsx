@@ -1,12 +1,22 @@
 /** @format */
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import getMovies from "../../api/api";
 import MovieList from "../../components/MovieList";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
 export default function Movie() {
 	const navigate = useNavigate();
+	const [searchMovies, setSearchMovies] = useSearchParams();
+	const query = searchMovies.get("query") || "";
+
+	const [movies, setMovies] = useState([]);
+	const [error, setError] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [page, setPage] = useState(1);
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const query = event.target.elements.searchMovie.value.trim();
@@ -17,26 +27,18 @@ export default function Movie() {
 		handleSearch(query);
 		navigate(`/movies?query=${query}`);
 		event.target.reset();
-		console.log(event.target.elements.searchMovie);
 	};
 
-	const [searchMovie, setSearchMovie] = useState("");
-	const [movies, setMovies] = useState([]);
-	const [error, setError] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [page, setPage] = useState(1);
-
 	useEffect(() => {
-		if (searchMovie === "") {
+		if (query === "") {
 			return;
 		}
 		const getData = async () => {
 			try {
 				setLoading(true);
 				setError(false);
-				const data = await getMovies(searchMovie, page);
+				const data = await getMovies(query, page);
 				setMovies((prevMovies) => [...prevMovies, ...data]);
-				console.log(data);
 			} catch (error) {
 				setError(true);
 			} finally {
@@ -45,10 +47,10 @@ export default function Movie() {
 		};
 
 		getData();
-	}, [searchMovie, page]);
+	}, [query, page]);
 
 	const handleSearch = (query) => {
-		setSearchMovie(query);
+		setSearchMovies({ query });
 		setPage(1);
 		setMovies([]);
 	};
@@ -72,7 +74,6 @@ export default function Movie() {
 			</header>
 			{loading && <p>Loading...</p>}
 			{error && <p>Error fetching movies.</p>}
-
 			{movies.length > 0 && <MovieList movies={movies} />}
 		</div>
 	);

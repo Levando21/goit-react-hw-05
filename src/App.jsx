@@ -15,6 +15,7 @@ import css from "./App.module.css";
 import NotFoundPage from "./components/NotFoundPage";
 import { lazy, Suspense } from "react";
 const Movies = lazy(() => import(`./pages/MoviePage/MoviesPage`));
+const Navigation = lazy(() => import(`./components/Navigation`));
 const HomePage = lazy(() => import(`./pages/HomePage/HomePage`));
 const MovieDetailsPage = lazy(() =>
 	import(`./pages/MovieDetailsPage/MovieDetailsPage`)
@@ -29,18 +30,7 @@ function App() {
 	return (
 		<div>
 			<header>
-				<nav className={css.nav}>
-					<NavLink
-						to="/"
-						className={windowIsActive}>
-						Home
-					</NavLink>
-					<NavLink
-						to="/movies"
-						className={windowIsActive}>
-						Movie
-					</NavLink>
-				</nav>
+				<Navigation activate={windowIsActive} />
 			</header>
 			<Suspense fallback={null}>
 				<Routes>

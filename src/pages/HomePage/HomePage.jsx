@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../../api/api";
 import { Link, useLocation } from "react-router-dom";
+import MovieList from "../../components/MovieList";
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
@@ -27,16 +28,12 @@ export default function HomePage() {
 			<h2>Trending Movies</h2>
 
 			{error && <p>Error fetching movies.</p>}
-			{movies.length > 0 &&
-				movies.map((movie) => (
-					<div key={movie.id}>
-						<Link
-							to={`/movies/${movie.id}`}
-							state={location}>
-							<p>{movie.title}</p>
-						</Link>
-					</div>
-				))}
+			{movies.length > 0 && (
+				<MovieList
+					movies={movies}
+					state={location}
+				/>
+			)}
 		</div>
 	);
 }
