@@ -8,7 +8,7 @@ export default function MovieDetailsPage() {
 	const { movieId } = useParams();
 	const [movie, setMovie] = useState(null);
 	const location = useLocation();
-	const backLocation = useRef(location.state ?? "/");
+	const backLocation = useRef(location.state?.from ?? "/");
 
 	useEffect(() => {
 		if (!movieId) return;

@@ -7,7 +7,7 @@ import getMovies from "../../api/api";
 import MovieList from "../../components/MovieList";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-export default function Movie() {
+export default function MoviesPage() {
 	const navigate = useNavigate();
 	const [searchMovies, setSearchMovies] = useSearchParams();
 	const query = searchMovies.get("query") || "";

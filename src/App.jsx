@@ -14,7 +14,7 @@ import css from "./App.module.css";
 //import MovieReview from "./components/MovieReviews";
 import NotFoundPage from "./components/NotFoundPage";
 import { lazy, Suspense } from "react";
-const Movies = lazy(() => import(`./pages/MoviePage/MoviesPage`));
+const MoviesPage = lazy(() => import(`./pages/MoviePage/MoviesPage`));
 const Navigation = lazy(() => import(`./components/Navigation`));
 const HomePage = lazy(() => import(`./pages/HomePage/HomePage`));
 const MovieDetailsPage = lazy(() =>
@@ -40,7 +40,7 @@ function App() {
 					/>
 					<Route
 						path="/movies"
-						element={<Movies />}
+						element={<MoviesPage />}
 					/>
 					<Route
 						path="/movies/:movieId"
